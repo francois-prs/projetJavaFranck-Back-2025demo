@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--unordered list with ID "ma-liste" qu'in remplira avec les produits depuis le serveur-->
+<ul id="ma-Liste">
+</ul>
+
+<!-- Form for submitting a new product, with onsubmit event handler -->
+<!-- The "return onNouveauProduit()" means it will call that function when submitted -->
+<!-- The function returns false to prevent the default form submission behavior -->
+<form onsubmit="return onNouveauProduit()">
+    <input id="champs-nom">    <!-- input field nom produit-->
+    <input id="champs-code">   <!-- input field code produit-->
+    <textarea id="champs-description"></textarea>
+    <input id="champs-prix">
+    <input type="submit" value="Envoyer">. <!-- boutton  field nom produit-->
+</form>
+</body>
+
+<script>
+
+    function onNouveauProduit() {
+        const produit = {
+            nom: document.getElementById("champs-nom").value,
+            code: document.getElementById("champs-code").value,
+            description: document.getElementById("champs-description").value,
+            prix: document.getElementById("champs-prix").value,
+        }
+
+        const jsonProduit = JSON.stringify(produit);
+
+        fetch("http://localhost:8080/produit", {
+            method: "POST",
+            body: jsonProduit,
+            headers: {"Content-type": "application/json"}
+        })
+            .then(resultat => console.log("fini"))
+
+        return false;
+    }
+
+    console.log("DEBUT")
+
+    fetch("http://localhost:8080/produits")
+        .then(resultat => resultat.json())
+        .then(listeProduit => {
+            const maListe = document.getElementById("ma-Liste")
+
+            for (let produit of listeProduit) {
+                const elementliste = document.createElement("li");
+                elementliste.innerHTML = produit.nom + " " + produit.prix
+                maListe.append(elementliste);
+            }
+        })
+
+    console.log("FIN")
+</script>
+
+</html>
