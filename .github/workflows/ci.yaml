@@ -12,4 +12,4 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
       - name: run tests
-        run: mn clean test
+        run: mvn clean test
