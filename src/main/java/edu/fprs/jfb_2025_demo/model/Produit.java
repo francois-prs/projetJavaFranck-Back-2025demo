@@ -1,6 +1,8 @@
 package edu.fprs.jfb_2025_demo.model;
 
 
+import com.fasterxml.jackson.annotation.JsonView;
+import edu.fprs.jfb_2025_demo.view.AffichageCommande;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
@@ -21,6 +23,8 @@ public class Produit {
     protected Integer id; //Integer etant un objet il peut avoir une valeur nulle
 
     @Column(nullable = false)
+    @NotBlank
+    @JsonView(AffichageCommande.class)
     protected String nom;
 
     @Column(length = 10, nullable = false, unique = true)
@@ -35,6 +39,7 @@ public class Produit {
     protected float prix;//float sur 4 octets, Double sur 8 octets
 
     @ManyToOne
+    @JoinColumn(nullable = false)
     protected Etat etat;
 
     @ManyToMany
@@ -44,7 +49,7 @@ public class Produit {
             inverseJoinColumns = @JoinColumn(name = "etiquette_id") //et renommer l'autre colonne
 
     )
-    protected List<Etiquette> etiquettes = new ArrayList<Etiquette>();
+    protected List<Etiquette> etiquettes = new ArrayList<>();
 
 
 }

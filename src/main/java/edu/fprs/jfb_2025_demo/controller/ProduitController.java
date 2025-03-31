@@ -50,8 +50,8 @@ public class ProduitController {
     @PostMapping("/produit")
     public ResponseEntity<Produit> save(@RequestBody Produit produit) {
 
+        produit.setId(null);
         produitDao.save(produit);
-
         return new ResponseEntity<>(produit, HttpStatus.CREATED);
     }
 
