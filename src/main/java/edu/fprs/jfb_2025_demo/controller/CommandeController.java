@@ -14,8 +14,8 @@ import java.util.List;
 import java.util.Optional;
 
 
-@CrossOrigin
-@RestController
+@CrossOrigin //enables CORS (Cross-Origin Resource Sharing), allowing the API to be called from different domains.
+@RestController//annotation to handle HTTP requests and return responses as JSON
 public class CommandeController {
 
 //    @Autowired

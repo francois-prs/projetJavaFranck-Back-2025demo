@@ -14,15 +14,15 @@ import java.util.Optional;
 @RestController
 public class EtatController {
 
-//    @Autowired
-//    protected EtatDao etatDao;
-
+    @Autowired
     protected EtatDao etatDao;
 
-    @Autowired
-    public EtatController(EtatDao etatDao) {
-        this.etatDao = etatDao;
-    }
+//    protected EtatDao etatDao;
+//
+//    @Autowired
+//    public EtatController(EtatDao etatDao) {
+//        this.etatDao = etatDao;
+//    }
 
 
     @GetMapping("/etat/{id}")

@@ -17,5 +17,8 @@ public class Etiquette {
     @Column(nullable = false)
     protected String nom;
 
+    @Column(nullable = false)
+    protected String couleur;
+
 
 }

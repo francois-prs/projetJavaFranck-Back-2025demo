@@ -1,6 +1,7 @@
 package edu.fprs.jfb_2025_demo.controller;
 
 import edu.fprs.jfb_2025_demo.dao.ProduitDao;
+import edu.fprs.jfb_2025_demo.model.Etat;
 import edu.fprs.jfb_2025_demo.model.Produit;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,14 @@ public class ProduitController {
 
     @PostMapping("/produit")
     public ResponseEntity<Produit> save(@RequestBody Produit produit) {
+
+        //si le produit recu n'a pas d'etat alors on indiquide qu'il neuf par defaut
+        if (produit.getEtat() == null) {
+
+            Etat etatNeuf = new Etat();
+            etatNeuf.setId(1);
+            produit.setEtat(etatNeuf);
+        }
 
         produit.setId(null);
         produitDao.save(produit);
