@@ -1,5 +1,6 @@
 package edu.fprs.jfb_2025_demo.model;
 
+import edu.fprs.jfb_2025_demo.security.Role;
 import jakarta.persistence.*;
 
 import jakarta.validation.constraints.Email;
@@ -31,6 +32,9 @@ public class Utilisateur {
     @NotBlank//(groups = {OnCreate.class})
     protected String password;
 
-    protected boolean admin;
+    //    protected boolean admin; dans le cas dun bollean, mais on choisit un enum finalement
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "ENUM('UTILISATEUR', 'REDACTEUR', 'ADMINISTRATEUR')")
+    protected Role role;
 
 }

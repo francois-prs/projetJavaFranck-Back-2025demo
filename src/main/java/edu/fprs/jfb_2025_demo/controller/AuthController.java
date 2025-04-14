@@ -2,6 +2,10 @@ package edu.fprs.jfb_2025_demo.controller;
 
 import edu.fprs.jfb_2025_demo.dao.UtilisateurDao;
 import edu.fprs.jfb_2025_demo.model.Utilisateur;
+import edu.fprs.jfb_2025_demo.security.AppUserDetails;
+import edu.fprs.jfb_2025_demo.security.AppUserDetailsService;
+import edu.fprs.jfb_2025_demo.security.JwtUtils;
+import edu.fprs.jfb_2025_demo.security.Role;
 import jakarta.validation.Valid;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,19 +28,20 @@ public class AuthController {
     protected UtilisateurDao utilisateurDao;
     protected PasswordEncoder passwordEncoder;
     protected AuthenticationProvider authenticationProvider;
+    protected JwtUtils jwtUtils;
 
     @Autowired
-    public AuthController(UtilisateurDao utilisateurDao, PasswordEncoder passwordEncoder, AuthenticationProvider authenticationProvider) {
+    public AuthController(UtilisateurDao utilisateurDao, PasswordEncoder passwordEncoder, AuthenticationProvider authenticationProvider, JwtUtils jwtUtils) {
         this.utilisateurDao = utilisateurDao;
         this.passwordEncoder = passwordEncoder;
         this.authenticationProvider = authenticationProvider;
-
+        this.jwtUtils = jwtUtils;
     }
 
     @PostMapping("/inscription")
     public ResponseEntity<Utilisateur> inscription(@RequestBody @Valid Utilisateur utilisateur) {
 
-        utilisateur.setAdmin(false);
+        utilisateur.setRole(Role.UTILISATEUR);
         utilisateur.setPassword(passwordEncoder.encode(utilisateur.getPassword()));
         utilisateurDao.save(utilisateur);
 
@@ -50,15 +55,17 @@ public class AuthController {
     public ResponseEntity<String> connexion(@RequestBody @Valid Utilisateur utilisateur) {
 
         try {
-            authenticationProvider.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            utilisateur.getEmail(),
-                            utilisateur.getPassword()));
+            AppUserDetails userDetails = (AppUserDetails) authenticationProvider
+                    .authenticate(
+                            new UsernamePasswordAuthenticationToken(
+                                    utilisateur.getEmail(),
+                                    utilisateur.getPassword()))
+                    .getPrincipal();
+
+            return new ResponseEntity<>(jwtUtils.generateToken(userDetails), HttpStatus.OK);
 
         } catch (AuthenticationException e) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
-        return new ResponseEntity<>("le future token", HttpStatus.OK);
     }
 }

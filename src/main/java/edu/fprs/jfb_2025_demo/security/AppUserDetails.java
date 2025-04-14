@@ -19,8 +19,8 @@ public class AppUserDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(
-                utilisateur.isAdmin() ? "ROLE_ADMINISTRATEUR" : "ROLE_USER"));
-
+                "ROLE_" + utilisateur.getRole().name()));
+        //                utilisateur.isAdmin() ? "ROLE_ADMINISTRATEUR" : "ROLE_USER"));
     }
 
     @Override

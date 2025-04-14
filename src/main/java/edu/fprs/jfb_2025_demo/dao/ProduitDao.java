@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface ProduitDao extends JpaRepository<Produit, Integer> {
 
     public Produit findByNom(String name);
+
 }

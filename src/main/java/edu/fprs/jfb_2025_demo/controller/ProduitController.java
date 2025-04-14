@@ -3,6 +3,8 @@ package edu.fprs.jfb_2025_demo.controller;
 import edu.fprs.jfb_2025_demo.dao.ProduitDao;
 import edu.fprs.jfb_2025_demo.model.Etat;
 import edu.fprs.jfb_2025_demo.model.Produit;
+import edu.fprs.jfb_2025_demo.security.IsRedacteur;
+import edu.fprs.jfb_2025_demo.security.IsUtilisateur;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-
 
 
 @CrossOrigin
@@ -34,7 +35,7 @@ public class ProduitController {
 
         Optional<Produit> optionalProduit = produitDao.findById(id);
 
-        if(optionalProduit.isEmpty()) {
+        if (optionalProduit.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
@@ -43,6 +44,7 @@ public class ProduitController {
     }
 
     @GetMapping("/produits")
+    @IsUtilisateur
     public List<Produit> getAll() {
 
         return produitDao.findAll();
@@ -65,11 +67,12 @@ public class ProduitController {
     }
 
     @DeleteMapping("/produit/{id}")
+    @IsRedacteur
     public ResponseEntity<Produit> delete(@PathVariable int id) {
 
         Optional<Produit> optionalProduit = produitDao.findById(id);
 
-        if(optionalProduit.isEmpty()) {
+        if (optionalProduit.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 

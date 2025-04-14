@@ -1,7 +1,7 @@
-INSERT INTO utilisateur(email, password, admin)
-VALUES ("a@aa.com", "$2a$10$lAu/I.wcbsNuxGEgd0GqrOLg.yZJKqga.6i9.04y4j3/Q6putGjsi", 1),
-       ("b@aa.com", "$2a$10$lAu/I.wcbsNuxGEgd0GqrOLg.yZJKqga.6i9.04y4j3/Q6putGjsi", 0);
-
+INSERT INTO utilisateur(email, password, role)
+VALUES ("a@aa.com", "$2a$10$lAu/I.wcbsNuxGEgd0GqrOLg.yZJKqga.6i9.04y4j3/Q6putGjsi", "ADMINISTRATEUR"),
+       ("b@aa.com", "$2a$10$lAu/I.wcbsNuxGEgd0GqrOLg.yZJKqga.6i9.04y4j3/Q6putGjsi", "REDACTEUR"),
+       ("c@aa.com", "$2a$10$lAu/I.wcbsNuxGEgd0GqrOLg.yZJKqga.6i9.04y4j3/Q6putGjsi", "UTILISATEUR");
 
 INSERT INTO etat (nom)
 VALUES ('neuf'),
