@@ -51,5 +51,7 @@ public class Produit {
     )
     protected List<Etiquette> etiquettes = new ArrayList<>();
 
-
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    Utilisateur createur;
 }

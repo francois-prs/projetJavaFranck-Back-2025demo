@@ -1,5 +1,5 @@
 ```toml
-name = 'POST'
+name = 'create'
 method = 'POST'
 url = 'http://localhost:8080/produit'
 sortWeight = 2000000

@@ -1,6 +1,5 @@
 package edu.fprs.jfb_2025_demo.security;
 
-import io.jsonwebtoken.Jwts;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,11 +18,11 @@ import java.io.IOException;
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
-    protected JwtUtils jwtUtils;
+    protected SecuriteUtils jwtUtils;
     protected UserDetailsService userDetailsService;
 
     @Autowired
-    public JwtFilter(JwtUtils jwtUtils, UserDetailsService userDetailsService) {
+    public JwtFilter(SecuriteUtils jwtUtils, UserDetailsService userDetailsService) {
         this.jwtUtils = jwtUtils;
         this.userDetailsService = userDetailsService;
     }

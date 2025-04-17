@@ -3,18 +3,15 @@ package edu.fprs.jfb_2025_demo.controller;
 import edu.fprs.jfb_2025_demo.dao.UtilisateurDao;
 import edu.fprs.jfb_2025_demo.model.Utilisateur;
 import edu.fprs.jfb_2025_demo.security.AppUserDetails;
-import edu.fprs.jfb_2025_demo.security.AppUserDetailsService;
-import edu.fprs.jfb_2025_demo.security.JwtUtils;
+import edu.fprs.jfb_2025_demo.security.SecuriteUtils;
 import edu.fprs.jfb_2025_demo.security.Role;
 import jakarta.validation.Valid;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,10 +25,10 @@ public class AuthController {
     protected UtilisateurDao utilisateurDao;
     protected PasswordEncoder passwordEncoder;
     protected AuthenticationProvider authenticationProvider;
-    protected JwtUtils jwtUtils;
+    protected SecuriteUtils jwtUtils;
 
     @Autowired
-    public AuthController(UtilisateurDao utilisateurDao, PasswordEncoder passwordEncoder, AuthenticationProvider authenticationProvider, JwtUtils jwtUtils) {
+    public AuthController(UtilisateurDao utilisateurDao, PasswordEncoder passwordEncoder, AuthenticationProvider authenticationProvider, SecuriteUtils jwtUtils) {
         this.utilisateurDao = utilisateurDao;
         this.passwordEncoder = passwordEncoder;
         this.authenticationProvider = authenticationProvider;
