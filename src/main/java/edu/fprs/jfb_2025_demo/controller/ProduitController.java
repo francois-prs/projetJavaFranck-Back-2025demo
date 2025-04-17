@@ -3,10 +3,7 @@ package edu.fprs.jfb_2025_demo.controller;
 import edu.fprs.jfb_2025_demo.dao.ProduitDao;
 import edu.fprs.jfb_2025_demo.model.Etat;
 import edu.fprs.jfb_2025_demo.model.Produit;
-import edu.fprs.jfb_2025_demo.security.AppUserDetails;
-import edu.fprs.jfb_2025_demo.security.IsRedacteur;
-import edu.fprs.jfb_2025_demo.security.IsUtilisateur;
-import edu.fprs.jfb_2025_demo.security.SecuriteUtils;
+import edu.fprs.jfb_2025_demo.security.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,10 +20,10 @@ import java.util.Optional;
 public class ProduitController {
 
     protected ProduitDao produitDao;
-    protected SecuriteUtils securiteUtils;
+    protected ISecuriteUtils securiteUtils;
 
     @Autowired
-    public ProduitController(ProduitDao produitDao, SecuriteUtils securiteUtils) {
+    public ProduitController(ProduitDao produitDao, ISecuriteUtils securiteUtils) {
         this.produitDao = produitDao;
         this.securiteUtils = securiteUtils;
     }
@@ -55,7 +52,7 @@ public class ProduitController {
     @IsUtilisateur
     public ResponseEntity<Produit> save(@RequestBody @Valid Produit produit,
                                         @AuthenticationPrincipal AppUserDetails userDetails) {
-
+        //dans le cas d'un enum
         produit.setCreateur(userDetails.getUtilisateur());
 
         //si le produit recu n'a pas d'etat alors on indiquide qu'il neuf par defaut

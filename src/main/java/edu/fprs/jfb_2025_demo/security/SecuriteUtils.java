@@ -8,11 +8,12 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 
 @Service
-public class SecuriteUtils {
+public class SecuriteUtils implements ISecuriteUtils {
 
     @Value("${jwt.secret}")
     String jwtSecret;
 
+    @Override
     public String getRole(AppUserDetails userDetails) {
 
         //        //récupérer le role de la personne
@@ -24,6 +25,7 @@ public class SecuriteUtils {
 
     }
 
+    @Override
     public String generateToken(AppUserDetails userDetails) {
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
@@ -33,6 +35,7 @@ public class SecuriteUtils {
                 .compact();
     }
 
+    @Override
     public String getSubjectFromJwt(String jwt) {
         return Jwts.parser()
                 .setSigningKey(jwtSecret)

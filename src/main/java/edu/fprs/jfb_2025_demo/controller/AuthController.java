@@ -3,6 +3,7 @@ package edu.fprs.jfb_2025_demo.controller;
 import edu.fprs.jfb_2025_demo.dao.UtilisateurDao;
 import edu.fprs.jfb_2025_demo.model.Utilisateur;
 import edu.fprs.jfb_2025_demo.security.AppUserDetails;
+import edu.fprs.jfb_2025_demo.security.ISecuriteUtils;
 import edu.fprs.jfb_2025_demo.security.SecuriteUtils;
 import edu.fprs.jfb_2025_demo.security.Role;
 import jakarta.validation.Valid;
@@ -25,10 +26,10 @@ public class AuthController {
     protected UtilisateurDao utilisateurDao;
     protected PasswordEncoder passwordEncoder;
     protected AuthenticationProvider authenticationProvider;
-    protected SecuriteUtils jwtUtils;
+    protected ISecuriteUtils jwtUtils;
 
     @Autowired
-    public AuthController(UtilisateurDao utilisateurDao, PasswordEncoder passwordEncoder, AuthenticationProvider authenticationProvider, SecuriteUtils jwtUtils) {
+    public AuthController(UtilisateurDao utilisateurDao, PasswordEncoder passwordEncoder, AuthenticationProvider authenticationProvider, ISecuriteUtils jwtUtils) {
         this.utilisateurDao = utilisateurDao;
         this.passwordEncoder = passwordEncoder;
         this.authenticationProvider = authenticationProvider;
